@@ -1,7 +1,4 @@
 import java.util.Stack;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public class Cool{
 
