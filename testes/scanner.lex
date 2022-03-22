@@ -12,7 +12,7 @@ INT = 0|[1-9][0-9]*
 FLOAT = {INT}\.[0-9]*
 ID = [a-zA-z_][a-zA-Z0-9_]*
 STR = \".*\"
-OPERATOR = [\+\-\/\*=<(<=)]
+OPERATOR = [\+\-\/\*]|(<=)|(<-)|(=)|(<)
 COMMENT_TYPE1 = --.*\n
 COMMENT_TYPE2 = \(\*([^*]|\n)*\*\)
 KEY_WORDS = (class)|(else)|(false)|(fi)|(if)|(in)|(inherits)|(isvoid)|(let)|(loop)|(pool)|(then)|(while)|(case)|(esac)|(new)|(of)|(not)|(true)
@@ -20,7 +20,7 @@ WHITE_SPACE = [\s\n]
 DEFAULT_TYPES = (String)|(Int)|(IO)|(Object)|(Bool)
 //----------------------------------------------------
 CLASS = class\s{ID}(\sinherits\s{ID}\s)?\{FEATURE\}
-FEATURE = ID\(FORMAL{1,*}\):ID\{{EXPR}\}
+FEATURE = {ID}\({FORMAL}*\):{ID}\{{EXPR}\}
 FORMAL = {ID}\s:\s{ID}
 EXPR = {ID}|{INT}|{FLOAT}|{STR}|{EXPR}\s{OPERATOR}\s{ID}|{INT}|{FLOAT}|{STR}|{EXPR}
 
