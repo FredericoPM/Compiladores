@@ -5,9 +5,14 @@ public class Cool{
     private Stack<String> stack = new Stack<>();
 
     public void string(String input){
-        //* detectar strings com quebra de linha sem o escape
-        //* string contendo caracteres nulos
-        //* string too long
+        if(input.charAt(input.length()-1)== '\"')
+            this.stack.push("ERROR: " + input);
+        for(int i = 0; i < input.length()-2; i++){
+            if(input.charAt(i) == '\0')
+                this.stack.push("ERROR: " + input);
+        }
+        if(input.length() > 1025)
+            this.stack.push("ERROR: " + input);
         System.out.println(input);
         this.stack.push(input);
     }
@@ -16,7 +21,8 @@ public class Cool{
         this.stack.push(input);
     }
     public void comment(String input){
-        //* detectar comentarios do tipo 2 sem o fechamento correto
+        if(input.charAt(input.length()-1)== ')' && input.charAt(input.length()-2)== '*' )
+            this.stack.push("ERROR: " + input);
         System.out.println(input);
         this.stack.push(input);
     }
