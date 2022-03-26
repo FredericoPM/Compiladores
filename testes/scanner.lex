@@ -25,15 +25,13 @@ DEFAULT_TYPES = (String)|(Int)|(IO)|(Object)|(Bool)
 %eofclose
 
 %%
-{STR}   {coolLanguage.string("STR");}
-{INT}   {coolLanguage.integer("INT");}
-{FLOAT}   {coolLanguage.float("FLOAT");}
-{COMMENT_TYPE1}   {coolLanguage.comment("COMMENT_TYPE1");}
-{COMMENT_TYPE2}   {coolLanguage.comment("COMMENT_TYPE2");}
+{STR}   {coolLanguage.string("{STR}");}
+{INT}   {coolLanguage.integer("{INT}");}
+{COMMENT_TYPE1}   {coolLanguage.comment("{COMMENT_TYPE1}");}
+{COMMENT_TYPE2}   {coolLanguage.comment("{COMMENT_TYPE2}");}
 {KEY_WORDS}   {coolLanguage.key_word("KEY_WORDS");}
 {WHITE_SPACE}   {coolLanguage.white_space("WHITE_SPACE");}
 {DEFAULT_TYPES}   {coolLanguage.default_types("DEFAULT_TYPES");}
-{CLASS} {coolLanguage.class("CLASS");}
 
 
 
