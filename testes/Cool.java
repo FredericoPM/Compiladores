@@ -8,36 +8,36 @@ public class Cool{
         //* detectar strings com quebra de linha sem o escape
         //* string contendo caracteres nulos
         //* string too long
-        System.out.println("string");
+        System.out.println(input);
         this.stack.push(input);
     }
     public void integer(String input){
-        System.out.println("integer");
+        System.out.println(input);
         this.stack.push(input);
     }
     public void comment(String input){
         //* detectar comentarios do tipo 2 sem o fechamento correto
-        System.out.println("integer");
+        System.out.println(input);
         this.stack.push(input);
     }
     public void key_word(String input){
-        System.out.println("key_word");
+        System.out.println(input);
         this.stack.push(input);
     }
     public void white_space(String input){
-        System.out.println("white_space");
+        System.out.println(input);
         this.stack.push(input);
     }
     public void default_types(String input){
-        System.out.println("default_types");
+        System.out.println(input);
         this.stack.push(input);
     }
     public void id(String input){
-        System.out.println("id");
+        System.out.println(input);
         this.stack.push(input);
     }
     public void operator(String input){
-        System.out.println("operator");
+        System.out.println(input);
         this.stack.push(input);
     }
     public void markdown(String input){

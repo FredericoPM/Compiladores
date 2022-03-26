@@ -17,7 +17,7 @@ COMMENT_TYPE2 = \(\*([^*]|\n)*\*?\)?
 KEY_WORDS = (class)|(else)|(false)|(fi)|(if)|(in)|(inherits)|(isvoid)|(let)|(loop)|(pool)|(then)|(while)|(case)|(esac)|(new)|(of)|(not)|(true)|(init)|(map)
 WHITE_SPACE = [ \t\n]
 DEFAULT_TYPE = (String)|(Int)|(IO)|(Object)|(Bool)|(SELF_TYPE)
-MARKDOWN = [\(\)\{\}\[\];]
+MARKDOWN = [\(\)\{\}\[\]\.;]
 UNMACHED_CLOSE_COMMENT = \*\)
 
 
@@ -38,4 +38,6 @@ UNMACHED_CLOSE_COMMENT = \*\)
 {ID}    {coolLanguage.id("ID");}
 {MARKDOWN}    {coolLanguage.markdown(yytext());}
 {UNMACHED_CLOSE_COMMENT} {coolLanguage.erro("Unmached *)");}
-. { coolLanguage.erro("Caracter invalido"); }
+
+
+. { coolLanguage.erro("Caractere invalido -> " + yytext()); }

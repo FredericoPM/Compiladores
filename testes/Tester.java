@@ -2,24 +2,21 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.nio.file.Files;
+import java.util.Scanner;
+
 
 
 public class Tester {
 
 	public static void main(String[] args) throws IOException{
 
-		File file = new File("testes/test.cl.skel");
-		String string_arquivo = new String(Files.readAllBytes(file.toPath()));
-
-
-		/* 		
-		String expr = "[ teste ]";
-		AnalisadorLexico lexical = new AnalisadorLexico(new StringReader(expr));
-		*/
-
-		AnalisadorLexico lexical = new AnalisadorLexico(new StringReader(string_arquivo));
+		String arquivo ="";
+		Scanner scan = new Scanner(new File("testes/test.cl.skel"));
+        while(scan.hasNextLine()){
+            arquivo = arquivo.concat(scan.nextLine());
+        }
+		AnalisadorLexico lexical = new AnalisadorLexico(new StringReader(arquivo));
 		lexical.yylex();
-
 	}
 
 }
