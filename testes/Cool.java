@@ -17,7 +17,7 @@ public class Cool{
     }
     public void comment(String input){
         //* detectar comentarios do tipo 2 sem o fechamento correto
-        System.out.println("integer");
+        System.out.println("comment");
         this.stack.push(input);
     }
     public void key_word(String input){
