@@ -10,7 +10,7 @@
 
 INT = 0|[1-9][0-9]*
 ID = [a-zA-z_][a-zA-Z0-9_]*
-STR = \"[^"]*\"
+STR = \"[^\"]*\"
 OPERATOR = [\+\-\/\*]|(<=)|(<-)|(=)|(<)
 COMMENT_TYPE1 = --.*\n
 COMMENT_TYPE2 = \(\*([^*]|\n)*\*\)
@@ -27,12 +27,11 @@ DEFAULT_TYPES = (String)|(Int)|(IO)|(Object)|(Bool)
 %%
 {STR}   {coolLanguage.string("{STR}");}
 {INT}   {coolLanguage.integer("{INT}");}
+{ID}    {coolLanguage.id("{ID}");}
 {COMMENT_TYPE1}   {coolLanguage.comment("{COMMENT_TYPE1}");}
 {COMMENT_TYPE2}   {coolLanguage.comment("{COMMENT_TYPE2}");}
 {KEY_WORDS}   {coolLanguage.key_word("KEY_WORDS");}
 {WHITE_SPACE}   {coolLanguage.white_space("WHITE_SPACE");}
 {DEFAULT_TYPES}   {coolLanguage.default_types("DEFAULT_TYPES");}
-
-
 
 . { throw new RuntimeException("Caractere invalido -> " + yytext()); }

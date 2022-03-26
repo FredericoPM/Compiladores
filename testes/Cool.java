@@ -22,4 +22,10 @@ public class Cool{
     public void default_types(String input){
         this.stack.push(input);
     }
+    public void id(String input){
+        this.stack.push(input);
+    }
+    public void operator(String input){
+        this.stack.push(input);
+    }
 }
