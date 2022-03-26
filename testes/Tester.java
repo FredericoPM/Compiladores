@@ -5,8 +5,7 @@ public class Tester {
 
 	public static void main(String[] args) throws IOException{
 		
-		String expr = "\n";
-		System.out.println(expr);
+		String expr = "[ teste ]";
 		
 		AnalisadorLexico lexical = new AnalisadorLexico(new StringReader(expr));
 		lexical.yylex();
