@@ -9,14 +9,13 @@
 %type int
 
 INT = 0|[1-9][0-9]*
-FLOAT = {INT}\.[0-9]*
 ID = [a-zA-z_][a-zA-Z0-9_]*
-STR = \".*\"
+STR = \"[^"]*\"
 OPERATOR = [\+\-\/\*]|(<=)|(<-)|(=)|(<)
 COMMENT_TYPE1 = --.*\n
 COMMENT_TYPE2 = \(\*([^*]|\n)*\*\)
 KEY_WORDS = (class)|(else)|(false)|(fi)|(if)|(in)|(inherits)|(isvoid)|(let)|(loop)|(pool)|(then)|(while)|(case)|(esac)|(new)|(of)|(not)|(true)
-WHITE_SPACE = [\s\n]
+WHITE_SPACE = [ \t\n]
 DEFAULT_TYPES = (String)|(Int)|(IO)|(Object)|(Bool)
 
 
