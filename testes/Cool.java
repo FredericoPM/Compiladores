@@ -5,14 +5,16 @@ public class Cool{
     private Stack<String> stack = new Stack<>();
 
     public void string(String input){
-        if(input.charAt(input.length()-1)== '\"')
-            this.stack.push("ERROR: " + input);
-        for(int i = 0; i < input.length()-2; i++){
-            if(input.charAt(i) == '\0')
-                this.stack.push("ERROR: " + input);
-        }
-        if(input.length() > 1025)
-            this.stack.push("ERROR: " + input);
+        if(input.indexOf(null) != -1)
+            this.erro("String contains null character");
+        else if(input.indexOf("\n") != -1 && input.charAt(input.indexOf("\n")-1) != '\'')
+            this.erro("Unterminated string constant");
+        else if(input.charAt(input.length()-1) != '"')
+            System.out.println("ERROR: EOF in string constant");
+        else if(input.length() > 1025)
+            this.erro("String constant too long");
+        
+
         System.out.println(input);
         this.stack.push(input);
     }
@@ -21,8 +23,8 @@ public class Cool{
         this.stack.push(input);
     }
     public void comment(String input){
-        if(input.charAt(input.length()-1)== ')' && input.charAt(input.length()-2)== '*' )
-            this.stack.push("ERROR: " + input);
+        if(input.charAt(input.length()-1) != ')' && input.charAt(input.length()-2) != '*' )
+            System.out.println("ERROR: EOF in comment");
         System.out.println(input);
         this.stack.push(input);
     }
