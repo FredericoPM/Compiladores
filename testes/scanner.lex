@@ -1,13 +1,20 @@
 %%
-
+/*
+A classe Cool.java foi criada para administrar a pilha de tokens.
+Além de tratar erros da análise léxica.
+*/
 %{
 	Cool coolLanguage = new Cool();
 %}
+/*
 
+*/
 %public
 %class AnalisadorLexico
 %type int
-
+/*
+Abaixo foram definidos nossos TOKENS com suas respectivas expressões regulares.
+*/
 INT = 0|[1-9][0-9]*
 ID = [a-zA-Z_][a-zA-Z0-9_]*
 STR = \"([^\"]|\n)*\"?
@@ -26,6 +33,11 @@ UNMACHED_CLOSE_COMMENT = \*\)
 %eofclose
 
 %%
+/*
+  Na seção abaixo são definidos os procedimentos, do objeto coolLanguage(classe Cool.java),
+que precisam ser executados quando cada TOKEN é encontrado.
+
+*/
 {STR}   {coolLanguage.string("STR");}
 {INT}   {coolLanguage.integer("INT");}
 {COMMENT_TYPE1}   {coolLanguage.comment("COMMENT1");}
