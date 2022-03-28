@@ -5,16 +5,26 @@ public class Cool{
     private Stack<String> stack = new Stack<>();
 
     public void string(String input){
-        if(input.indexOf(null) != -1)
-            this.erro("String contains null character");
-        else if(input.indexOf("\n") != -1 && input.charAt(input.indexOf("\n")-1) != '\'')
+        
+        if(input.indexOf("\n") != -1 && input.charAt(input.indexOf("\n")-1) != '\'')
             this.erro("Unterminated string constant");
         else if(input.charAt(input.length()-1) != '"')
             System.out.println("ERROR: EOF in string constant");
         else if(input.length() > 1025)
             this.erro("String constant too long");
-        
-
+        else{
+            if(input == null){
+                this.erro("String contains null character");
+            }
+            else{
+                for(int i=0; i<input.length();i++){
+                    if(input.substring(i, i+1) == null){
+                        this.erro("String contains null character");
+                        break;
+                    }
+                }
+            }
+        }
         System.out.println(input);
         this.stack.push(input);
     }
@@ -33,10 +43,6 @@ public class Cool{
         this.stack.push(input);
     }
     public void white_space(String input){
-        System.out.println(input);
-        this.stack.push(input);
-    }
-    public void default_types(String input){
         System.out.println(input);
         this.stack.push(input);
     }
