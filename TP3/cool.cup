@@ -53,7 +53,7 @@ terminal CLASS, ELSE, FI, IF, IN, INHERITS, LET, LET_STMT, LOOP, POOL, THEN, WHI
 terminal CASE, ESAC, OF, DARROW, NEW, ISVOID;
 terminal ASSIGN, NOT, LE, ERROR;
 terminal PLUS, DIV, MINUS, MULT, EQ, LT, DOT, NEG, COMMA, SEMI, COLON;
-terminal LPAREN, RPAREN, AT, LBRACE, RBRACE;
+terminal LPAREN, RPAREN, AT, LBRACE, RBRACE, DOIS_PONTOS;
 terminal AbstractSymbol STR_CONST, INT_CONST;
 terminal Boolean BOOL_CONST;
 terminal AbstractSymbol TYPEID, OBJECTID;
@@ -68,6 +68,8 @@ nonterminal program program;
 nonterminal Classes class_list;
 nonterminal class_ class;
 nonterminal Features dummy_feature_list;
+nonterminal Formal formal;
+nonterminal Expr expr;
 
 /* Precedence declarations go here. */
 
@@ -97,6 +99,18 @@ class
 
 /* Feature list may be empty, but no empty features in list. */
 dummy_feature_list
-	::= /* empty */
+	::= TYPEID LPAREN formal RPAREN DOIS_PONTOS TYPEID LBRACE expr RBRACE
 	    {: RESULT = new Features(curr_lineno()); :}
 	;
+
+formal
+    ::= TYPEID DOIS_PONTOS TYPEID
+        {:RESULT:};
+    |
+    ::= TYPEID DOIS_PONTOS TYPEID COMMA formal
+        {:RESULT:};
+
+expr
+    ::= expr 
+        {:RESULT:};
+    |  
