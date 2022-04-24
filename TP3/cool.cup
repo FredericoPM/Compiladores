@@ -68,7 +68,9 @@ nonterminal program program;
 nonterminal Classes class_list;
 nonterminal class_ class;
 nonterminal Features dummy_feature_list;
-nonterminal Formal formal;
+nonterminal feature_ feature;
+nonterminal Formal formal_list;
+nonterminal formal_ formal;
 nonterminal Expr expr;
 
 /* Precedence declarations go here. */
@@ -99,32 +101,43 @@ class
 
 /* Feature list may be empty, but no empty features in list. */
 dummy_feature_list
-	::= TYPEID LPAREN formal RPAREN COLON TYPEID LBRACE expr RBRACE
-	    {: RESULT = new Features(curr_lineno()); :}
-	;
+    ::= feature:f
+        {: RESULT = new Features(curr_lineno()).appendElement(f); :}
+    | dummy_feature_list:dfl  feature:f
+        {: RESULT = dfl.appendElement(f); :}
+    ;
+
+feature
+	::= TYPEID:n LPAREN formal:f RPAREN COLON TYPEID:p LBRACE expr:e RBRACE
+	    {: RESULT = new feature_(curr_lineno(), n, f, p, e, curr_filename()); :}
+    ;
+
+formal_list
+    ::= formal: f
+        {: RESULT = new Formal(curr_lineno()).appendElement(f); :}
+    |::= formal_list:fl COMMA formal:f
+        {: RESULT = fl.appendElement(f); :}
+    ;
 
 formal
-    ::= TYPEID COLON TYPEID
-        {:RESULT:};
-    |
-    ::= TYPEID COLON TYPEID COMMA formal
-        {:RESULT:};
+    ::= TYPEID:n COLON TYPEID:p
+        {:RESULT = new formal_(curr_lineno(), n, p, curr_filename());:}
+	;
 
 expr
-
     ::= TYPEID LE DASH expr
         {:RESULT:}
     |
-    ::= expr TYPEID DOT LPAREN expr RPAREN
+    expr TYPEID DOT LPAREN expr RPAREN
         {:RESULT:}
     |
-    ::= TYPEID LPAREN expr RPAREN
+    TYPEID LPAREN expr RPAREN
          {:RESULT:}
     |
-    ::= TYPEID COLON TYPEID COMMA expr
+    TYPEID COLON TYPEID COMMA expr
         {:RESULT:}
     |
-    ::= IF expr THEN expr ELSE expr FI
+    IF expr THEN expr ELSE expr FI
         {:RESULT:}
     |
     WHILE expr LOOP expr POOL
@@ -139,52 +152,52 @@ expr
     CASE expr OF formal_expr_list ESAC
         {:RESULT:}
     |
-    ::= NEW expr 
+    NEW expr 
         {:RESULT:}
     |
-	::= ISVOID expr 
+    ISVOID expr 
         {:RESULT:}
     |
-	::= expr PLUS expr
+    expr PLUS expr
         {:RESULT:}
     |
-	::= expr MINUS expr
+    expr MINUS expr
         {:RESULT:}
     |
-	::= expr MULT expr
+    expr MULT expr
+    {:RESULT:}
+        |
+    expr DIV expr
         {:RESULT:}
     |
-	::= expr DIV expr
+    NEG expr
         {:RESULT:}
     |
-	::= NEG expr
+    expr LT expr
         {:RESULT:}
     |
-	::= expr LT expr
+    expr LT EQ expr
         {:RESULT:}
     |
-	::= expr LT EQ expr
+    expr EQ expr
         {:RESULT:}
     |
-	::= expr EQ expr
+    NOT expr
         {:RESULT:}
     |
-	::= NOT expr
+    LPAREN expr RPAREN
         {:RESULT:}
     |
-	::= LPAREN expr RPAREN
+    TYPEID
         {:RESULT:}
     |
-	::= TYPEID
+    INT_CONST
         {:RESULT:}
     |
-	::= INT_CONST
+    STR_CONST
         {:RESULT:}
     |
-	::= STR_CONST
-        {:RESULT:}
-    |
-	::= BOOL_CONST
+    BOOL_CONST
         {:RESULT:}
     ;
 
