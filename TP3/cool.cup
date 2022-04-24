@@ -111,6 +111,22 @@ formal
         {:RESULT:};
 
 expr
+
+    ::= TYPEID LE DASH expr
+        {:RESULT:};
+    
+    ::= expr TYPEID DOT LPAREN expr RPAREN
+        {:RESULT:};
+
+    ::= TYPEID LPAREN expr RPAREN
+         {:RESULT:};
+
+    ::= TYPEID COLON TYPEID COMMA expr
+        {:RESULT:};
+
+    ::= IF expr THEN expr ELSE expr FI
+        {:RESULT:};
+
     ::= NEW expr 
         {:RESULT:};
     |
