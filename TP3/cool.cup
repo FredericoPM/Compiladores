@@ -113,65 +113,101 @@ formal
 expr
 
     ::= TYPEID LE DASH expr
-        {:RESULT:};
-    
+        {:RESULT:}
+    |
     ::= expr TYPEID DOT LPAREN expr RPAREN
-        {:RESULT:};
-
+        {:RESULT:}
+    |
     ::= TYPEID LPAREN expr RPAREN
-         {:RESULT:};
-
+         {:RESULT:}
+    |
     ::= TYPEID COLON TYPEID COMMA expr
-        {:RESULT:};
-
+        {:RESULT:}
+    |
     ::= IF expr THEN expr ELSE expr FI
-        {:RESULT:};
-
+        {:RESULT:}
+    |
+    WHILE expr LOOP expr POOL
+		{:RESULT:}
+	| 
+    LPAREN expr_list RPAREN
+        {:RESULT:}
+    |
+    LET formal_assign_expr_list IN expr
+        {:RESULT:}
+    |
+    CASE expr OF formal_expr_list ESAC
+        {:RESULT:}
+    |
     ::= NEW expr 
-        {:RESULT:};
+        {:RESULT:}
     |
 	::= ISVOID expr 
-        {:RESULT:};
+        {:RESULT:}
     |
 	::= expr PLUS expr
-        {:RESULT:};
+        {:RESULT:}
     |
 	::= expr MINUS expr
-        {:RESULT:};
+        {:RESULT:}
     |
 	::= expr MULT expr
-        {:RESULT:};
+        {:RESULT:}
     |
 	::= expr DIV expr
-        {:RESULT:};
+        {:RESULT:}
     |
 	::= NEG expr
-        {:RESULT:};
+        {:RESULT:}
     |
 	::= expr LT expr
-        {:RESULT:};
+        {:RESULT:}
     |
 	::= expr LT EQ expr
-        {:RESULT:};
+        {:RESULT:}
     |
 	::= expr EQ expr
-        {:RESULT:};
+        {:RESULT:}
     |
 	::= NOT expr
-        {:RESULT:};
+        {:RESULT:}
     |
 	::= LPAREN expr RPAREN
-        {:RESULT:};
+        {:RESULT:}
     |
 	::= TYPEID
-        {:RESULT:};
+        {:RESULT:}
     |
 	::= INT_CONST
-        {:RESULT:};
+        {:RESULT:}
     |
 	::= STR_CONST
-        {:RESULT:};
+        {:RESULT:}
     |
 	::= BOOL_CONST
-        {:RESULT:};
+        {:RESULT:}
+    ;
+
+expr_list
+    ::= expr:e
+        {:RESULT:}
     |
+    expr_list:e_list expr:e
+        {:RESULT:}
+    ;
+
+formal_expr_list
+    ::= formal LE expr
+        {:RESULT:}
+    |
+    formal_expr_list formal LE expr
+        {:RESULT:}
+    ;
+
+formal_assign_expr_list
+    ::= formal ASSIGN expr
+        {:RESULT:}
+    |
+    formal ASSIGN expr formal_assign_expr_list
+        {:RESULT:}
+    ;
