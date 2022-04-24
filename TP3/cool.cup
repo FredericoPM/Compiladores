@@ -53,7 +53,7 @@ terminal CLASS, ELSE, FI, IF, IN, INHERITS, LET, LET_STMT, LOOP, POOL, THEN, WHI
 terminal CASE, ESAC, OF, DARROW, NEW, ISVOID;
 terminal ASSIGN, NOT, LE, ERROR;
 terminal PLUS, DIV, MINUS, MULT, EQ, LT, DOT, NEG, COMMA, SEMI, COLON;
-terminal LPAREN, RPAREN, AT, LBRACE, RBRACE, DOIS_PONTOS;
+terminal LPAREN, RPAREN, AT, LBRACE, RBRACE;
 terminal AbstractSymbol STR_CONST, INT_CONST;
 terminal Boolean BOOL_CONST;
 terminal AbstractSymbol TYPEID, OBJECTID;
@@ -99,18 +99,63 @@ class
 
 /* Feature list may be empty, but no empty features in list. */
 dummy_feature_list
-	::= TYPEID LPAREN formal RPAREN DOIS_PONTOS TYPEID LBRACE expr RBRACE
+	::= TYPEID LPAREN formal RPAREN COLON TYPEID LBRACE expr RBRACE
 	    {: RESULT = new Features(curr_lineno()); :}
 	;
 
 formal
-    ::= TYPEID DOIS_PONTOS TYPEID
+    ::= TYPEID COLON TYPEID
         {:RESULT:};
     |
-    ::= TYPEID DOIS_PONTOS TYPEID COMMA formal
+    ::= TYPEID COLON TYPEID COMMA formal
         {:RESULT:};
 
 expr
-    ::= expr 
+    ::= NEW expr 
         {:RESULT:};
-    |  
+    |
+	::= ISVOID expr 
+        {:RESULT:};
+    |
+	::= expr PLUS expr
+        {:RESULT:};
+    |
+	::= expr MINUS expr
+        {:RESULT:};
+    |
+	::= expr MULT expr
+        {:RESULT:};
+    |
+	::= expr DIV expr
+        {:RESULT:};
+    |
+	::= NEG expr
+        {:RESULT:};
+    |
+	::= expr LT expr
+        {:RESULT:};
+    |
+	::= expr LT EQ expr
+        {:RESULT:};
+    |
+	::= expr EQ expr
+        {:RESULT:};
+    |
+	::= NOT expr
+        {:RESULT:};
+    |
+	::= LPAREN expr RPAREN
+        {:RESULT:};
+    |
+	::= TYPEID
+        {:RESULT:};
+    |
+	::= INT_CONST
+        {:RESULT:};
+    |
+	::= STR_CONST
+        {:RESULT:};
+    |
+	::= BOOL_CONST
+        {:RESULT:};
+    |
