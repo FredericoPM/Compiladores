@@ -52,7 +52,7 @@ the lexer returns it.  */
 terminal CLASS_COOL, ELSE, FI, IF, IN, INHERITS, LET, LET_STMT, LOOP, POOL, THEN, WHILE;
 terminal CASE, ESAC, OF, DARROW, NEW, ISVOID;
 terminal ASSIGN, NOT, LE, ERROR;
-terminal PLUS, DIV, MINUS, MULT, EQ, LT, DOT, NEG, COMMA, SEMI, COLON, DASH;
+terminal PLUS, DIV, MINUS, MULT, EQ, LT, DOT, NEG, COMMA, SEMI, COLON, DASH, LAMBDA;
 terminal LPAREN, RPAREN, AT, LBRACE, RBRACE;
 terminal AbstractSymbol STR_CONST, INT_CONST;
 terminal Boolean BOOL_CONST;
@@ -167,9 +167,6 @@ expr
         {:RESULT:}
     |
     NOT expr expr_
-        {:RESULT:}
-    |
-    LPAREN expr RPAREN expr_
         {:RESULT:}
     |
     TYPEID expr_
