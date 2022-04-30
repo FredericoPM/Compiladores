@@ -172,9 +172,6 @@ expr
     LPAREN expr RPAREN expr_
         {:RESULT:}
     |
-    constant_expr expr_
-        {:RESULT:}
-    |
     TYPEID expr_
         {:RESULT:}
     |
