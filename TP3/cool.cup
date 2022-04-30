@@ -132,7 +132,7 @@ formal
 	;
 
 expr
-    ::= TYPEID LE DASH expr
+    ::= TYPEID LT DASH expr
         {:RESULT:}
     |
     expr TYPEID DOT LPAREN expr RPAREN
