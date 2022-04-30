@@ -72,6 +72,7 @@ nonterminal feature_ feature;
 nonterminal Formal formal_list;
 nonterminal formal_ formal;
 nonterminal Expr expr;
+nonterminal expr_;
 nonterminal Expr_list expr_list;
 nonterminal Formal_assign_expr_list formal_assign_expr_list;
 nonterminal Formal_expr_list formal_expr_list;
@@ -132,80 +133,87 @@ formal
 	;
 
 expr
-    ::= TYPEID LT DASH expr
+    ::= TYPEID LT DASH expr expr_
         {:RESULT:}
     |
-    expr TYPEID DOT LPAREN expr RPAREN
-        {:RESULT:}
-    |
-    TYPEID LPAREN expr RPAREN
+    TYPEID LPAREN expr RPAREN expr_
          {:RESULT:}
     |
-    TYPEID COLON TYPEID COMMA expr
+    TYPEID COLON TYPEID COMMA expr expr_
         {:RESULT:}
     |
-    IF expr THEN expr ELSE expr FI
+    IF expr THEN expr ELSE expr FI expr_
         {:RESULT:}
     |
-    WHILE expr LOOP expr POOL
+    WHILE expr LOOP expr POOL expr_
 		{:RESULT:}
 	| 
-    LPAREN expr_list RPAREN
+    LPAREN expr_list RPAREN expr_
         {:RESULT:}
     |
-    LET formal_assign_expr_list IN expr
+    LET formal_assign_expr_list IN expr expr_
         {:RESULT:}
     |
-    CASE expr OF formal_expr_list ESAC
+    CASE expr OF formal_expr_list ESAC expr_
         {:RESULT:}
     |
-    NEW expr 
+    NEW expr expr_
         {:RESULT:}
     |
-    ISVOID expr 
+    ISVOID expr expr_
         {:RESULT:}
     |
-    expr PLUS expr
+    NEG expr expr_
         {:RESULT:}
     |
-    expr MINUS expr
+    NOT expr expr_
         {:RESULT:}
     |
-    expr MULT expr
-    {:RESULT:}
-        |
-    expr DIV expr
+    LPAREN expr RPAREN expr_
         {:RESULT:}
     |
-    NEG expr
+    constant_expr expr_
         {:RESULT:}
     |
-    expr LT expr
+    TYPEID expr_
         {:RESULT:}
     |
-    expr LT EQ expr
+    INT_CONST expr_
         {:RESULT:}
     |
-    expr EQ expr
+    STR_CONST expr_
         {:RESULT:}
     |
-    NOT expr
+    BOOL_CONST expr_
+        {:RESULT:}
+    ;
+
+expr_
+    ::= LT expr
         {:RESULT:}
     |
-    LPAREN expr RPAREN
+    LT EQ expr
         {:RESULT:}
     |
-    TYPEID
+    EQ expr
         {:RESULT:}
     |
-    INT_CONST
+    PLUS expr
         {:RESULT:}
     |
-    STR_CONST
+    MINUS expr
         {:RESULT:}
     |
-    BOOL_CONST
+    MULT expr
         {:RESULT:}
+    |
+    DIV expr
+        {:RESULT:}
+    |
+    TYPEID DOT LPAREN expr RPAREN
+        {:RESULT:}
+    | 
+    LAMBDA
     ;
 
 expr_list
