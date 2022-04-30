@@ -220,7 +220,7 @@ expr_list
     ::= expr:e
         {:RESULT:}
     |
-    expr_list:e_list expr:e
+    expr:e expr_list:e_list
         {:RESULT:}
     ;
 
@@ -228,7 +228,7 @@ formal_expr_list
     ::= formal LE expr:e
         {:RESULT:}
     |
-    formal_expr_list:fel formal LE expr:e
+    formal LE expr:e formal_expr_list:fel 
         {:RESULT:}
     ;
 
@@ -236,6 +236,6 @@ formal_assign_expr_list
     ::= formal:f ASSIGN expr:e
         {:RESULT:}
     |
-    formal_assign_expr_list:fael formal ASSIGN expr:e
+    formal ASSIGN expr:e formal_assign_expr_list:fael
         {:RESULT:}
     ;
