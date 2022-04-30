@@ -66,7 +66,7 @@ terminal AbstractSymbol TYPEID, OBJECTID;
 
 nonterminal program program;
 nonterminal Classes class_list;
-nonterminal class_ _class;
+nonterminal class_ class_cool;
 nonterminal Features dummy_feature_list;
 nonterminal feature_ feature;
 nonterminal Formal formal_list;
@@ -85,16 +85,16 @@ program
 
 class_list
 	/* single class */
-	::= _class:c
+	::= class_cool:c
 	    {: RESULT = (new Classes(curr_lineno())).appendElement(c); :}
 	/* several classes */
 	|
-    class_list:cl _class:c
+    class_cool:c class_list:cl
 	    {: RESULT = cl.appendElement(c); :}
 	;
 
 /* If no parent is specified, the class inherits from the Object class */
-_class
+class_cool
 	::= CLASS_COOL TYPEID:n LBRACE dummy_feature_list:f RBRACE SEMI
 	    {: RESULT = new class_(curr_lineno(), n, 
 		                   AbstractTable.idtable.addString("Object"), 
@@ -109,7 +109,7 @@ dummy_feature_list
     ::= feature:f
         {: RESULT = new Features(curr_lineno()).appendElement(f); :}
     |
-    dummy_feature_list:dfl  feature:f
+    feature:f dummy_feature_list:dfl
         {: RESULT = dfl.appendElement(f); :}
     ;
 
@@ -122,7 +122,7 @@ formal_list
     ::= formal: f
         {: RESULT = new Formal(curr_lineno()).appendElement(f); :}
     |
-    formal_list:fl COMMA formal:f
+    COMMA formal:f formal_list:fl
         {: RESULT = fl.appendElement(f); :}
     ;
 
