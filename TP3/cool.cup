@@ -49,7 +49,7 @@ parser code {:
 token ERROR is never used in the parser; thus, it is a parse error when
 the lexer returns it.  */
 
-terminal CLASS, ELSE, FI, IF, IN, INHERITS, LET, LET_STMT, LOOP, POOL, THEN, WHILE;
+terminal CLASS_COOL, ELSE, FI, IF, IN, INHERITS, LET, LET_STMT, LOOP, POOL, THEN, WHILE;
 terminal CASE, ESAC, OF, DARROW, NEW, ISVOID;
 terminal ASSIGN, NOT, LE, ERROR;
 terminal PLUS, DIV, MINUS, MULT, EQ, LT, DOT, NEG, COMMA, SEMI, COLON;
@@ -83,22 +83,22 @@ program
 
 class_list
 	/* single class */
-	::= class:c
+	::= _class:c
 	    {: RESULT = (new Classes(curr_lineno())).appendElement(c); :}
 	/* several classes */
 	|
-    class_list:cl class:c
+    class_list:cl _class:c
 	    {: RESULT = cl.appendElement(c); :}
 	;
 
 /* If no parent is specified, the class inherits from the Object class */
-class
-	::= CLASS TYPEID:n LBRACE dummy_feature_list:f RBRACE SEMI
+_class
+	::= CLASS_COOL TYPEID:n LBRACE dummy_feature_list:f RBRACE SEMI
 	    {: RESULT = new class_(curr_lineno(), n, 
 		                   AbstractTable.idtable.addString("Object"), 
 				   f, curr_filename()); :}
 	|
-    CLASS TYPEID:n INHERITS TYPEID:p LBRACE dummy_feature_list:f RBRACE SEMI
+    CLASS_COOL TYPEID:n INHERITS TYPEID:p LBRACE dummy_feature_list:f RBRACE SEMI
 	    {: RESULT = new class_(curr_lineno(), n, p, f, curr_filename()); :}
 	;
 
