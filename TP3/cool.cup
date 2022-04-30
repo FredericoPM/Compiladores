@@ -52,7 +52,7 @@ the lexer returns it.  */
 terminal CLASS_COOL, ELSE, FI, IF, IN, INHERITS, LET, LET_STMT, LOOP, POOL, THEN, WHILE;
 terminal CASE, ESAC, OF, DARROW, NEW, ISVOID;
 terminal ASSIGN, NOT, LE, ERROR;
-terminal PLUS, DIV, MINUS, MULT, EQ, LT, DOT, NEG, COMMA, SEMI, COLON;
+terminal PLUS, DIV, MINUS, MULT, EQ, LT, DOT, NEG, COMMA, SEMI, COLON, DASH;
 terminal LPAREN, RPAREN, AT, LBRACE, RBRACE;
 terminal AbstractSymbol STR_CONST, INT_CONST;
 terminal Boolean BOOL_CONST;
@@ -66,13 +66,15 @@ terminal AbstractSymbol TYPEID, OBJECTID;
 
 nonterminal program program;
 nonterminal Classes class_list;
-nonterminal class_ class;
+nonterminal class_ _class;
 nonterminal Features dummy_feature_list;
 nonterminal feature_ feature;
 nonterminal Formal formal_list;
 nonterminal formal_ formal;
 nonterminal Expr expr;
-
+nonterminal Expr_list expr_list;
+nonterminal Formal_assign_expr_list formal_assign_expr_list;
+nonterminal Formal_expr_list formal_expr_list;
 
 /* Precedence declarations go here. */
 
