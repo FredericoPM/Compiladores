@@ -189,28 +189,28 @@ expr
     ;
 
 expr_
-    ::= LT expr
+    ::= LT expr expr_
         {:RESULT:}
     |
-    LT EQ expr
+    LT EQ expr expr_
         {:RESULT:}
     |
-    EQ expr
+    EQ expr expr_
         {:RESULT:}
     |
-    PLUS expr
+    PLUS expr expr_
         {:RESULT:}
     |
-    MINUS expr
+    MINUS expr expr_
         {:RESULT:}
     |
-    MULT expr
+    MULT expr expr_
         {:RESULT:}
     |
-    DIV expr
+    DIV expr expr_
         {:RESULT:}
     |
-    TYPEID DOT LPAREN expr RPAREN
+    TYPEID DOT LPAREN expr RPAREN expr_
         {:RESULT:}
     | 
     LAMBDA
