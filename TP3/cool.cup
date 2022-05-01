@@ -72,10 +72,13 @@ nonterminal feature_ feature;
 nonterminal Formal formal_list;
 nonterminal formal_ formal;
 nonterminal Expr expr_list;
-nonterminal expr expr_;
+nonterminal Expr expr;
+nonterminal expr_;
 nonterminal Expr_list ;
 nonterminal Formal_assign_exprs formal_assign_expr_list;
 nonterminal Formal_exprs formal_expr_list;
+
+
 
 /* Precedence declarations go here. */
 
