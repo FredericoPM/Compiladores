@@ -71,11 +71,11 @@ nonterminal Features dummy_feature_list;
 nonterminal feature_ feature;
 nonterminal Formal formal_list;
 nonterminal formal_ formal;
-nonterminal Expr expr;
-nonterminal expr_;
-nonterminal Expr_list expr_list;
-nonterminal Formal_assign_expr_list formal_assign_expr_list;
-nonterminal Formal_expr_list formal_expr_list;
+nonterminal Expr expr_list;
+nonterminal expr expr_;
+nonterminal Expr_list ;
+nonterminal Formal_assign_exprs formal_assign_expr_list;
+nonterminal Formal_exprs formal_expr_list;
 
 /* Precedence declarations go here. */
 
@@ -115,7 +115,7 @@ dummy_feature_list
     ;
 
 feature
-	::= TYPEID:n LPAREN formal:f RPAREN COLON TYPEID:p LBRACE expr:e RBRACE
+	::= TYPEID:n LPAREN formal_list:f RPAREN COLON TYPEID:p LBRACE expr_list:e RBRACE
 	    {: RESULT = new feature_(curr_lineno(), n, f, p, e, curr_filename()); :}
     ;
 
@@ -132,104 +132,104 @@ formal
         {:RESULT = new formal_(curr_lineno(), n, p, curr_filename());:}
 	;
 
+expr_list
+    ::= expr:e
+        {:RESULT = new Expr(curr_lineno()).appendElement(e);:}
+    |
+    expr:e expr_list:e_list
+        {:RESULT = e_list.appendElement(e);:}
+    ;
+
 expr
-    ::= TYPEID LT DASH expr expr_
-        {:RESULT:}
+    ::= TYPEID:n LT DASH expr:e expr_:el
+        {:RESULT = new expr(curr_lineno(), n, curr_filename()).appendElement(e).appendElement(el);:}
     |
-    TYPEID LPAREN expr RPAREN expr_
-         {:RESULT:}
+    TYPEID:n LPAREN expr:e RPAREN expr_:el
+         {:RESULT = new expr(curr_lineno(), n, curr_filename()).appendElement(e).appendElement(el);:}
     |
-    TYPEID COLON TYPEID COMMA expr expr_
-        {:RESULT:}
+    TYPEID:n COLON TYPEID:p COMMA expr:e expr_:el
+        {:RESULT = new expr(curr_lineno(), n, p, curr_filename()).appendElement(e).appendElement(el);:}
     |
-    IF expr THEN expr ELSE expr FI expr_
-        {:RESULT:}
+    IF expr:e THEN expr:p ELSE expr:f FI expr_:el
+        {:RESULT = new expr(curr_lineno(), curr_filename()).appendElement(e).appendElement(p).appendElement(f).appendElement(el);:}
     |
-    WHILE expr LOOP expr POOL expr_
-		{:RESULT:}
+    WHILE expr:e LOOP expr:p POOL expr_:el
+		{:RESULT = new expr(curr_lineno(), curr_filename()).appendElement(e).appendElement(p).appendElement(el);:}
 	| 
-    LPAREN expr_list RPAREN expr_
-        {:RESULT:}
+    LPAREN expr_list:e RPAREN expr_:el
+        {:RESULT = new expr(curr_lineno(), e, curr_filename()).appendElement(el);:}
     |
-    LET formal_assign_expr_list IN expr expr_
-        {:RESULT:}
+    LET formal_assign_expr_list:e IN expr expr_:el
+        {:RESULT = new expr(curr_lineno(), e, curr_filename()).appendElement(el);:}
     |
-    CASE expr OF formal_expr_list ESAC expr_
-        {:RESULT:}
+    CASE expr:e OF formal_expr_list:p ESAC expr_:el
+        {:RESULT = new expr(curr_lineno(), p, curr_filename()).appendElement(e).appendElement(el);:}
     |
-    NEW expr expr_
-        {:RESULT:}
+    NEW expr:e expr_:el
+        {:RESULT= new expr(curr_lineno(), curr_filename()).appendElement(e).appendElement(el);:}
     |
-    ISVOID expr expr_
-        {:RESULT:}
+    ISVOID expr:e expr_:el
+        {:RESULT= new expr(curr_lineno(), curr_filename()).appendElement(e).appendElement(el);:}
     |
-    NEG expr expr_
-        {:RESULT:}
+    NEG expr:e expr_:el
+        {:RESULT= new expr(curr_lineno(), curr_filename()).appendElement(e).appendElement(el);:}
     |
-    NOT expr expr_
-        {:RESULT:}
+    NOT expr:e expr_:el
+        {:RESULT= new expr(curr_lineno(), curr_filename()).appendElement(el);:}
     |
-    TYPEID expr_
-        {:RESULT:}
+    TYPEID expr_:el
+        {:RESULT= new expr(curr_lineno(), curr_filename()).appendElement(el);:}
     |
-    INT_CONST expr_
-        {:RESULT:}
+    INT_CONST expr_:el
+        {:RESULT= new expr(curr_lineno(), curr_filename()).appendElement(el);:}
     |
-    STR_CONST expr_
-        {:RESULT:}
+    STR_CONST expr_:el
+        {:RESULT= new expr(curr_lineno(), curr_filename()).appendElement(el);:}
     |
-    BOOL_CONST expr_
-        {:RESULT:}
+    BOOL_CONST expr_:el
+        {:RESULT= new expr(curr_lineno(), curr_filename()).appendElement(el);:}
     ;
 
 expr_
-    ::= LT expr expr_
-        {:RESULT:}
+    ::= LT expr:e expr_:el
+        {:RESULT= new expr(curr_lineno(), curr_filename()).appendElement(e).appendElement(el);:}
     |
-    LT EQ expr expr_
-        {:RESULT:}
+    LT EQ expr:e expr_:el
+        {:RESULT= new expr(curr_lineno(), curr_filename()).appendElement(e).appendElement(el);:}
     |
-    EQ expr expr_
-        {:RESULT:}
+    EQ expr:e expr_:el
+        {:RESULT= new expr(curr_lineno(), curr_filename()).appendElement(e).appendElement(el);:}
     |
-    PLUS expr expr_
-        {:RESULT:}
+    PLUS expr:e expr_:el
+        {:RESULT= new expr(curr_lineno(), curr_filename()).appendElement(e).appendElement(el);:}
     |
-    MINUS expr expr_
-        {:RESULT:}
+    MINUS expr:e expr_:el
+        {:RESULT= new expr(curr_lineno(), curr_filename()).appendElement(e).appendElement(el);:}
     |
-    MULT expr expr_
-        {:RESULT:}
+    MULT expr:e expr_:el
+        {:RESULT= new expr(curr_lineno(), curr_filename()).appendElement(e).appendElement(el);:}
     |
-    DIV expr expr_
-        {:RESULT:}
+    DIV expr:e expr_:el
+        {:RESULT= new expr(curr_lineno(), curr_filename()).appendElement(e).appendElement(el);:}
     |
-    TYPEID DOT LPAREN expr RPAREN expr_
-        {:RESULT:}
+    TYPEID DOT LPAREN expr:e RPAREN expr:el
+        {:RESULT= new expr(curr_lineno(), curr_filename()).appendElement(e).appendElement(el);:}
     | 
     LAMBDA
     ;
 
-expr_list
-    ::= expr:e
-        {:RESULT:}
-    |
-    expr:e expr_list:e_list
-        {:RESULT:}
-    ;
-
 formal_expr_list
-    ::= formal LE expr:e
-        {:RESULT:}
+    ::= formal:f LE expr:e
+        {: RESULT = new Formal_exprs(curr_lineno()).appendElement(e).appendElement(f); :}
     |
-    formal LE expr:e formal_expr_list:fel 
-        {:RESULT:}
+    formal:f LE expr:e formal_expr_list:fe
+        {:RESULT fe.appendElement(e).appendElement(f):}
     ;
 
 formal_assign_expr_list
     ::= formal:f ASSIGN expr:e
-        {:RESULT:}
+        {: RESULT = new Formal_assign_exprs(curr_lineno()).appendElement(e).appendElement(f); :}
     |
-    formal ASSIGN expr:e formal_assign_expr_list:fael
-        {:RESULT:}
+    formal:f ASSIGN expr:e formal_assign_expr_list:fa
+        {:RESULT fa.appendElement(e).appendElement(f):}
     ;
